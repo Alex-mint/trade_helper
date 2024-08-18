@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 <td><p><span  class="cursor" onclick="openSymbolPage('${row.symbol}')">+</span> <span class="cursor" onclick="newSymbol('BINANCE:${row.symbol}.P')" class="">${row.symbol}</span></p></td>
                 <td class="right-align">${(row.count/1000000).toFixed(1)} M</td>
                 <td class="right-align">${(row.quoteVolume/1000000000).toFixed(2)} B</td>
-                <td class="${changeClass} right-align">${row.priceChangePercent}</td>
+                <td class="${changeClass} right-align">${Number(row.priceChangePercent).toFixed(2)}</td>
             `;
 
             tableBody.appendChild(tr);
