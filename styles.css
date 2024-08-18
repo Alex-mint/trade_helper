@@ -1,0 +1,322 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #1e2a38;
+    color: #c9d1d9;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #0d1117;
+    padding: 20px 30px;
+}
+
+nav span {
+    color: #b9e03c;
+    font-size: 24px;
+}
+
+nav input {
+    margin-left: 10px;
+    padding: 8px;
+    background-color: #2d333b;
+    border: none;
+    border-radius: 4px;
+    color: #c9d1d9;
+}
+
+.content {
+    display: flex;
+    margin: 10px;
+}
+
+.chart-container {
+    flex: 3;
+    margin-right: 20px;
+}
+
+.chart-container img {
+    width: 100%;
+    border-radius: 4px;
+}
+
+.sidebar {
+    flex: 1;
+    background-color: #161b22;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.sidebar input[type="text"] {
+    width: 60%;
+    padding: 8px;
+    margin-bottom: 10px;
+    background-color: #2d333b;
+    border: none;
+    border-radius: 4px;
+    color: #c9d1d9;
+}
+
+.sidebar button {
+    width: 40%;
+    padding: 6px;
+    background-color: #2d9cdb;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.sidebar .text-box {
+    margin-bottom: 10px;
+    background-color: #0d1117;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+
+
+
+.negative {
+    color: red;
+}
+.positive {
+    color: green;
+}
+
+textarea {
+    background-color: #2a2d33; /* Темный фон, как у других элементов */
+    color: #ffffff; /* Белый текст */
+    border: 1px solid #444; /* Тонкая граница, чтобы соответствовать другим полям */
+    padding: 5px; /* Отступ внутри текстового поля */
+    font-family: 'Arial', sans-serif; /* Шрифт как у других элементов */
+    font-size: 14px; /* Размер текста */
+    border-radius: 4px; /* Закругленные углы */
+    width: 60%; /* Ширина на весь доступный блок */
+    box-sizing: border-box; /* Для учета отступов и границ в ширине */
+    resize: none; /* Отключить возможность изменения размера */
+}
+
+textarea:focus {
+    outline: none; /* Убираем стандартное выделение при фокусе */
+    border-color: #3a3f47; /* Цвет границы при фокусе */
+    background-color: #33373e; /* Немного более светлый фон при фокусе */
+}
+
+select {
+    background-color: #2a2d33; /* Темный фон */
+    color: #ffffff; /* Белый текст */
+    border: 1px solid #444; /* Граница как у других элементов */
+    padding: 7px; /* Отступы внутри поля */
+    font-family: 'Arial', sans-serif; /* Шрифт */
+    font-size: 14px; /* Размер текста */
+    border-radius: 4px; /* Закругленные углы */
+    width: 63%; /* Ширина на весь доступный блок */
+    height: 35px; /* Высота такая же, как у других полей */
+    box-sizing: border-box; /* Учет отступов и границ в ширине */
+    appearance: none; /* Убирает стандартные стили браузера */
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4gPHBhdGggZmlsbD0iI2ZmZiIgZD0iTTEyLjI5NCA1LjcwNGMtLjM5My0uMzkzLTEuMDI5LS4zOTMtMS40MjIgMEw4IDguNTc1IDUuMTI4IDUuNzA0Yy0uMzkzLS4zOTMtMS4wMjktLjM5My0xLjQyMiAwcy0uMzkzIDEuMDI5IDAgMS40MjJsMy41IDMuNWMuMzkzLjM5MyAxLjAyOS4zOTMgMS40MjIgMGwzLjUtMy41Yy4zOTItLjM5My4zOTItMS4wMjkgMC0xLjQyMiIgLz48L3N2Zz4='); /* Значок стрелки */
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 12px;
+    cursor: pointer; /* Указывает на то, что элемент кликабелен */
+    margin-bottom: 10px; /* Отступ снизу */
+}
+
+select:focus {
+    outline: none; /* Убираем стандартное выделение при фокусе */
+    border-color: #3a3f47; /* Цвет границы при фокусе */
+    background-color: #33373e; /* Немного более светлый фон при фокусе */
+}
+
+/* Стили для чекбокса */
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    font-family: 'Arial', sans-serif;
+    font-size: 14px;
+    color: #ffffff; /* Белый текст */
+    margin-bottom: 10px; /* Отступ снизу */
+    margin-top: 10px;
+}
+
+.checkbox-container input[type="checkbox"] {
+    display: none; /* Скрываем стандартный чекбокс */
+}
+
+.checkbox-container .checkmark {
+    width: 20px;
+    height: 20px;
+    background-color: #2a2d33; /* Темный фон */
+    border: 1px solid #444; /* Граница как у других полей */
+    border-radius: 4px; /* Закругленные углы */
+    margin-right: 10px; /* Отступ справа от чекбокса */
+    position: relative;
+}
+
+.checkbox-container input[type="checkbox"]:checked + .checkmark::before {
+    content: "";
+    position: absolute;
+    top: 4px;
+    left: 6px;
+    width: 8px;
+    height: 8px;
+    background-color: #c9c3ee; /* Белый цвет галочки */
+}
+
+.checkbox-container .checkmark:hover {
+    background-color: #33373e; /* Немного более светлый фон при наведении */
+}
+
+.right-align {
+    text-align: right;
+}
+
+table {
+    width: 95%;
+}
+
+.table-container {
+    position: relative;
+    width: 430px; /* Ширина контейнера */
+    height: 95vh; /* Высота контейнера */
+    /* border: 3px solid yellow; Границы желтого цвета */
+    overflow: hidden; /* Обрезаем содержимое за границами */
+}
+
+.table-content {
+    padding-top: 5px;
+    width: 100%;
+    height: 95%;
+    overflow-y: scroll; /* Вертикальный скролл */
+    overflow-x: hidden; /* Отключаем горизонтальный скролл */
+}
+
+.table-header {
+    position: sticky;
+    top: 0;
+    background-color: #000; /* Цвет фона заголовка */
+    color: #ffffff; /* Цвет текста заголовка */
+    padding: 5px;
+}
+
+.table-header, .row {
+    display: flex;
+}
+
+.cell {
+    flex: 1;
+    padding: 5px;
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+}
+
+.table-header {
+    position: sticky;
+    top: 0;
+    background-color: #000;
+    color: #fff;
+    z-index: 1;
+}
+
+.table-content::-webkit-scrollbar {
+    width: 8px; /* Ширина полосы прокрутки */
+}
+
+.table-content::-webkit-scrollbar-thumb {
+    background-color: #FFD700; /* Цвет полосы прокрутки */
+    border-radius: 10px; /* Закругленные углы */
+}
+
+.table-content::-webkit-scrollbar-track {
+    background-color: #333; /* Цвет трека */
+}
+
+.sidebar .text-box p {
+    margin: 0 ;
+    padding: 5px 0;
+} 
+
+symbol {
+    margin: 0 ;
+    padding: 5px 0;
+}
+
+.selectCoint {
+    color: #FFD700;
+}
+
+/* modal */
+
+.modal {
+    display: none; /* Окно скрыто по умолчанию */
+    position: fixed;
+    z-index: 4;
+    right: 20px; /* Отступ справа */
+    top: 20px;   /* Отступ сверху */
+    width: 300px;
+    height: 300px;
+    background-color: rgba(0, 0, 0, 0.4); /* Полупрозрачный фон */
+    padding-top: 10px;
+}
+
+/* Контент модального окна */
+.modal-content {
+    background-color: #1e2a38;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 90%; /* Немного уменьшил ширину контента для внутреннего отступа */
+    height: 90%; /* Немного уменьшил высоту контента для внутреннего отступа */
+    border-radius: 10px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); /* Тень */
+}
+
+/* Стили для кнопки закрытия */
+.close {
+    color: #aaa;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+}
+
+/* Стили для input и кнопки внутри модального окна */
+.modal-input {
+    width: 80%;
+    padding: 8px;
+    margin-bottom: 10px;
+    background-color: #2d333b;
+    border: none;
+    border-radius: 4px;
+    color: #c9d1d9;
+}
+
+.save-btn {
+    width: 40%;
+    padding: 6px;
+    background-color: #2d9cdb;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.cursor {
+    cursor: pointer;
+}
+

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trading Interface</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- <nav>
+        <span id="logo">Я верю в тебя!</span>
+        
+    </nav> -->
+
+    <div class="content">
+        <div class="chart-container">
+
+            <div class="inner-container">
+
+                
+                <div class="inner-item">
+                    <div id="widget1" style="float:left;width:100%;height:50vh;">
+                
+                        <div class="tradingview-widget-container" style="height:100%; width:100%">
+                            <div id="tradingview-widget1" class="tradingview-widget-container__widget" style="height:100%; width:100%"></div>
+                        </div>
+                    
+                        <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+                        <script type="text/javascript">
+                            function createTradingViewWidget(symbol) {
+                                new TradingView.widget({
+                                    "autosize": true,
+                                    "symbol": symbol,
+                                    "interval": "15",
+                                    "timezone": "Etc/UTC",
+                                    "theme": "dark",
+                                    "style": "1",
+                                    "locale": "ru",
+                                    "hide_side_toolbar": false,
+                                    "allow_symbol_change": true,
+                                    "calendar": false,
+                                    "container_id": "tradingview-widget1"
+                                });
+                            }
+                    
+                            function updateSymbol(symbol) {
+                                /* var symbol = document.getElementById("symbolInput").value; */
+                                if (symbol) {
+                                    document.getElementById("tradingview-widget1").innerHTML = ""; // Очистка контейнера
+                                    createTradingViewWidget(symbol);
+                                }
+                            }
+                    
+                            // Инициализация виджета с начальным символом
+                            
+            
+                            var initialSymbol = "BINANCE:BTCUSDT.P";
+                            createTradingViewWidget(initialSymbol);
+                        </script>     
+                    </div>
+                </div> 
+                <div class="inner-item">
+                    <div id="widget2" style="float:left;width:100%;height:50vh;">
+                
+                        <div class="tradingview-widget-container" style="height:100%; width:100%">
+                            <div id="tradingview-widget2" class="tradingview-widget-container__widget" style="height:100%; width:100%"></div>
+                        </div>
+                        <script type="text/javascript">
+                            function createTradingViewWidget2(symbol) {
+                                new TradingView.widget({
+                                    "autosize": true,
+                                    "symbol": symbol,
+                                    "interval": "D",
+                                    "timezone": "Etc/UTC",
+                                    "theme": "dark",
+                                    "style": "1",
+                                    "locale": "ru",
+                                    "hide_side_toolbar": false,
+                                    "allow_symbol_change": true,
+                                    "calendar": false,
+                                    "container_id": "tradingview-widget2"
+                                });
+                            }
+                    
+                            function updateSymbol2(symbol) {
+                                /* var symbol = document.getElementById("symbolInput").value; */
+                                if (symbol) {
+                                    document.getElementById("tradingview-widget2").innerHTML = ""; // Очистка контейнера
+                                    createTradingViewWidget2(symbol);
+                                }
+                            }
+                    
+                            // Инициализация виджета с начальным символом
+                            
+            
+                            var initialSymbol = "BINANCE:BTCUSDT.P";
+                            createTradingViewWidget2(initialSymbol);
+                        </script>     
+                    </div>
+                </div> 
+                
+            </div>
+
+            
+        </div>
+        
+        <div class="sidebar">
+            <div class="text-box">
+                <input id="symbolInput" type="text" placeholder="BTCUSDT">
+                <button onclick="GetSymbol(document.getElementById('symbolInput').value)" id="getSymbol">Отправить</button>
+            </div>
+            <div class="text-box">
+                <input id="deposit" type="text" placeholder="Депозит">
+                <input id="risk" type="text" placeholder="% Риска">
+                <input id="stopLoss" type="text" placeholder="% Stop Loss">
+                <button id="btnStopLoss">Посчитать</button>
+                <p id="positionSize">Размер ставки: 0</p>
+            </div>
+            <div class="text-box">
+                <p>Trades</p>
+                <p id="btcTrades">BTCUSDT: 0</p>
+                <p id="cointTrades">Coint: 0</p>
+                <p id="correl">COREL: 0</p>
+            </div>
+            
+            <div class="text-box">
+                
+                <label class="checkbox-container">
+                    <input type="checkbox" id="vol-1d" name="checkbox1">
+                    <span class="checkmark"></span>
+                    Повышеные объёмы 1Д
+                </label>
+                <label class="checkbox-container">
+                    <input type="checkbox" id="vol-15m" name="checkbox2">
+                    <span class="checkmark"></span>
+                    Повышеные объёмы 15м
+                </label>
+            </div>
+            <div class="text-box">
+                <select id="mood">
+                    <option value="боевой">Настрой боевой</option>
+                    <option value="Грусно">Грусно</option>
+                    <option value="Устал">Устал</option>
+                    <option value="Опатия">Опатия</option>
+                </select>
+                <label class="checkbox-container">
+                    <input type="checkbox" id="baga" name="checkbox2">
+                    <span class="checkmark"></span>
+                    По стратегии Бага
+                </label>
+                <select id="strategy">
+                    <option value="отскок от зона">Стратегия отскок от зона</option>
+                    <option value="Отскок от уровня">Отскок от уровня</option>
+                    <option value="Отскок от наклонки">Отскок от наклонки</option>
+                    <option value="Подхват на откате">Подхват на откате</option>
+                    <option value="Пробой уровня">Пробой уровня</option>
+                    <option value="Пробой наклонки">Пробой наклонки</option>
+                    <option value="Слом структуры">Слом структуры</option>
+                    <option value="Ножи">Ножи</option>
+                    <option value="Обратка">Обратка</option>
+                    <option value="Другая">Другая</option>
+                </select>
+                
+                <input id="url" type="text" placeholder="URL">
+                <input id="income%" type="text" placeholder="% Доход">
+                <input id="income$" type="text" placeholder="$ Доход">
+                <p><textarea id="comment" placeholder="Коментарий"></textarea></p>
+                <p><textarea id="myError" placeholder="Ошибки"></textarea></p>
+                <p><textarea id="conclusion" placeholder="Вывод"></textarea></p>
+                <button id="btnSave">Сохранить</button>
+            </div>
+            <div class="text-box">
+                <button id="btnSave" onclick="openNewPage('file:///C:/Users/soyvi/Downloads/Visual%20Code/Helper/new/index.html')">Открыть новую вкладку</button>
+                <button id="btnSave" onclick="openNewPage('TV')">Открыть в TradingView</button>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.3.1/math.min.js"></script>
+    <script src="js/saveFiles.js"></script>
+    <script src="js/corelApp.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
