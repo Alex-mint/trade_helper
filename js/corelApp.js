@@ -63,4 +63,4 @@ async function calculateCorrelation(symbol) {
     }
 }
 
-calculateCorrelation('BTC')
+//calculateCorrelation('BTC')
