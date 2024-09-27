@@ -110,7 +110,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 const openSymbolPage = (param) => {
-    const filePath = "/trade_helper/symbol"; // Относительный путь к вашему файлу
+    const filePath = "/scalper"; // Относительный путь к вашему файлу
     const params = new URLSearchParams({ param1: param, param2: "1"});
     window.open(`${filePath}?${params.toString()}`, "_blank");
 
