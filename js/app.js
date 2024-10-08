@@ -11,6 +11,7 @@ const risk = document.getElementById('risk')
 const stopLoss = document.getElementById('stopLoss')
 const btnStopLoss = document.getElementById('btnStopLoss')
 const positionSize = document.getElementById('positionSize')
+const title = document.getElementById('title')
 
 const params = new URLSearchParams(window.location.search);
 const param1 = params.get("param1"); // Получаем значение параметра "param1"
@@ -104,4 +105,5 @@ function openNewPage(url) {
 console.log('qqqqqqqqqqqqqqq', param1)
 if (param1) {
     GetSymbol(param1)
+    title.textContent = param1
 }
