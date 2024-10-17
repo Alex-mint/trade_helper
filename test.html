@@ -21,7 +21,7 @@
             
             try {
                 // Загружаем данные из JSON-файла с GitHub
-                const response = await fetch('https://raw.githubusercontent.com/username/repository/main/coinsData.json');
+                const response = await fetch('https://raw.githubusercontent.com/Alex-mint/trade_helper/refs/heads/main/coinsData.json');
                 const coins = await response.json();
 
                 // Проверяем наличие монеты
