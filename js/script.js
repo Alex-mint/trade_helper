@@ -1,4 +1,5 @@
 let selectedCoint = document.getElementById('selectedCoint').textContent
+var listingBtn = document.getElementById("listingBtn")
 
 window.onload = function() {
     var headerCells = document.querySelectorAll('.table-header .cell');
@@ -142,6 +143,10 @@ const openSymbolPage = (param) => {
     const params = new URLSearchParams({ param1: param, param2: "1"});
     window.open(`${filePath}?${params.toString()}`, "_blank");
 };
+
+listingBtn.onclick = function() {
+    window.open('https://alex-mint.github.io/trade_helper/listing', '_blank')
+}
 
 
 

@@ -64,7 +64,7 @@ def main():
     for ticket in tickets:
         volume, listing = get_average_volume(ticket)
         if listing:
-            is_listing.append(ticket)
+            is_listing.append(ticket.upper())
         if volume:
             average_volumes[ticket.upper()] = volume
         time.sleep(1)
