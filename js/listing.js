@@ -1,57 +1,33 @@
-allowedTickers = {'ALPACAUSDT': '80', 'FIDAUSDT': '52', 'CATIUSDT': '51', 'NEIROETHUSDT': '65', '1MBABYDOGEUSDT': '55', 'CETUSUSDT': '4', 'BRETTUSDT': '82', 'SYSUSDT': '83', 'POLUSDT': '58', 'SANTOSUSDT': '13', 'BANANAUSDT': '87', 'BSWUSDT': '66', 'POPCATUSDT': '80', 'REIUSDT': '44', 'COWUSDT': '4', 'GHSTUSDT': '48', '1000000MOGUSDT': '3', 'MOODENGUSDT': '16', 'DIAUSDT': '39', 'VOXELUSDT': '82', 'PONKEUSDT': '6', 'SCRUSDT': '19', 'SUNUSDT': '80', 'DRIFTUSDT': '2', 'NEIROUSDT': '55', 'SYNUSDT': '86', 'DOGSUSDT': '76', 'GOATUSDT': '17', '1000CATUSDT': '20', 'HMSTRUSDT': '45', 'QUICKUSDT': '65', 'COSUSDT': '41', 'UXLINKUSDT': '56', 'AERGOUSDT': '61', 'CHESSUSDT': '73', 'EIGENUSDT': '40', 'RAREUSDT': '87', 'VIDTUSDT': '79', 'SAFEUSDT': '16', 'LOKAUSDT': '47', 'GUSDT': '87', 'KDAUSDT': '53', 'FIOUSDT': '51', 'TROYUSDT': '10', 'NULSUSDT': '76', 'MBOXUSDT': '74', 'FLUXUSDT': '68', 'BTCUSDT_250328': '44', 'GRASSUSDT': '2', 'RPLUSDT': '62', 'SWELLUSDT': '2', 'ETHUSDT_250328': '44'}
-let selectedCoint = document.getElementById('selectedCoint').textContent
+let allowedTickers = {};  // Будет загружено из JSON файла
 
-
-window.onload = function() {
-    var headerCells = document.querySelectorAll('.table-header .cell');
-    var contentCells = document.querySelectorAll('.table-content .row:first-child .cell');
-
-    headerCells.forEach((headerCell, index) => {
-        headerCell.style.width = `${contentCells[index].offsetWidth}px`;
-    });
-};
-
-const newSymbol = (symbol) => {
-    updateSymbol(symbol)
-    updateSymbol2(symbol)
-    document.getElementById('selectedCoint').textContent = symbol.split(':')[1].split('.')[0]
-    calculateCorrelation(symbol.split(':')[1].split('.')[0])
-
-
+// Функция для загрузки allowedTickers из JSON файла на GitHub
+async function loadAllowedTickers() {
+    try {
+        const response = await fetch('https://raw.githubusercontent.com/Alex-mint/trade_helper/refs/heads/main/listingData.json');
+        allowedTickers = await response.json();
+    } catch (error) {
+        console.error("Ошибка при загрузке allowedTickers:", error);
+    }
 }
 
-document.addEventListener("DOMContentLoaded", function() {
-    let sortOrder = {
-        ticker: 'asc',
-        deals: 'desc',  // Начальная сортировка по убыванию количества сделок
-        turnover: 'asc',
-        change: 'asc'
-    };
+// Функция для поиска монеты
+async function searchCoin(coinName) {
+    try {
+        const response = await fetch('https://raw.githubusercontent.com/Alex-mint/trade_helper/refs/heads/main/coinsData.json');
+        const coins = await response.json();
 
-    const tableBody = document.getElementById("cryptoTable");
-
-    // Функция для поиска монеты
-    async function searchCoin(coinName) {
-
-
-        try {
-            // Загружаем данные из JSON-файла с GitHub
-            const response = await fetch('https://raw.githubusercontent.com/Alex-mint/trade_helper/refs/heads/main/coinsData.json');
-            const coins = await response.json();
-
-            // Проверяем наличие монеты
-            const coinValue = coins[coinName];
-            if (coinValue !== undefined) {
-                return coinValue;
-            }
-        } catch (error) {
-
-            console.error(error);
+        const coinValue = coins[coinName];
+        if (coinValue !== undefined) {
+            return coinValue;
         }
+    } catch (error) {
+        console.error(error);
     }
+}
 
-    // Функция для отображения данных в таблице
+// Функция для отображения данных в таблице
 async function renderTable(data) {
+    const tableBody = document.getElementById("cryptoTable");
     tableBody.innerHTML = '';
 
     for (const row of data) {
@@ -59,25 +35,40 @@ async function renderTable(data) {
         const changeClass = parseFloat(row.priceChangePercent) >= 0 ? "positive" : "negative";
 
         // Дожидаемся результата поиска монеты
-        const coinValue = await searchCoin(row.symbol); // Асинхронный вызов
-        const adjustedVolume = coinValue ? (row.quoteVolume / coinValue).toFixed(2) : null; // Предварительно вычисляем значение
+        const coinValue = await searchCoin(row.symbol); 
+        const adjustedVolume = coinValue ? (row.quoteVolume / coinValue).toFixed(2) : null;
+
+        // Получаем значение из allowedTickers для текущего символа
+        const allowedTickerValue = allowedTickers[row.symbol] || 'N/A';
 
         tr.innerHTML = `
-            <td><p><span class="cursor" onclick="openSymbolPage('${row.symbol}')">+</span> <span class="cursor" onclick="newSymbol('BINANCE:${row.symbol}.P')" class="">${row.symbol}</span></p></td>
+            <td>
+                <p>
+                    <span class="cursor" onclick="openSymbolPage('${row.symbol}')">+</span> 
+                    <span class="cursor" onclick="newSymbol('BINANCE:${row.symbol}.P')" class="">
+                        ${row.symbol} (${allowedTickerValue})
+                    </span>
+                </p>
+            </td>
             <td class="right-align">${(row.count / 1000000).toFixed(1)} M</td>
             <td class="right-align">${adjustedVolume !== null ? adjustedVolume : 'N/A'}</td>
             <td class="${changeClass} right-align">${Number(row.priceChangePercent).toFixed(2)}</td>
         `;
 
-        // Сохраняем вычисленное значение для сортировки
         row.adjustedVolume = adjustedVolume !== null ? parseFloat(adjustedVolume) : null;
-
         tableBody.appendChild(tr);
     }
 }
 
 // Функция для сортировки данных
 function sortTable(data, column) {
+    let sortOrder = {
+        ticker: 'asc',
+        deals: 'desc',
+        turnover: 'asc',
+        change: 'asc'
+    };
+
     data.sort((a, b) => {
         let valA, valB;
 
@@ -88,7 +79,6 @@ function sortTable(data, column) {
             valA = a.count;
             valB = b.count;
         } else if (column === 'turnover') {
-            // Используем заранее вычисленные значения `adjustedVolume` для сортировки
             valA = a.adjustedVolume !== null ? a.adjustedVolume : 0;
             valB = b.adjustedVolume !== null ? b.adjustedVolume : 0;
         } else if (column === 'change') {
@@ -107,42 +97,61 @@ function sortTable(data, column) {
     renderTable(data); // Обновляем таблицу после сортировки
 }
 
+// Функция для получения данных из API
+async function fetchData() {
+    const apiUrl = 'https://fapi.binance.com/fapi/v1/ticker/24hr';
+    const excludedTickers = ["OCEANUSDT", "AGIXUSDT", "WAVESUSDT"];
 
-    // Функция для получения данных из API
-    function fetchData() {
-        const apiUrl = 'https://fapi.binance.com/fapi/v1/ticker/24hr'; // Замените на ваш URL API
-        const excludedTickers = ["OCEANUSDT", "AGIXUSDT", "AAVEUSDT", "GMXUSDT", "WAVESUSDT"];
+    try {
+        const response = await fetch(apiUrl);
+        const data = await response.json();
 
+        // Фильтрация по обороту больше $50,000,000 и наличию в allowedTickers
+        const filteredData = data.filter(item =>
+            parseFloat(item.quoteVolume) > 50_000_000 &&
+            item.symbol.includes("USDT") &&
+            Object.keys(allowedTickers).includes(item.symbol) &&
+            !excludedTickers.includes(item.symbol)
+        );
 
-        fetch(apiUrl)
-            .then(response => response.json())
-            .then(data => {
-                // Фильтрация по обороту больше $50,000,000
-                const filteredData = data.filter(item =>
-                    parseFloat(item.quoteVolume) > 50_000_000 &&
-                    item.symbol.includes("USDT") &&
-                    allowedTickers.includes(item.symbol) &&
-                    !excludedTickers.includes(item.symbol)
-                );
+        // Изначальная сортировка по количеству сделок (убывание)
+        filteredData.sort((a, b) => b.count - a.count);
+        renderTable(filteredData);
 
-                // Изначальная сортировка по количеству сделок (убывание)
-                filteredData.sort((a, b) => b.count - a.count);
-                renderTable(filteredData);
-
-                document.getElementById("sortTicker").addEventListener("click", () => sortTable(filteredData, 'ticker'));
-                document.getElementById("sortDeals").addEventListener("click", () => sortTable(filteredData, 'deals'));
-                document.getElementById("sortTurnover").addEventListener("click", () => sortTable(filteredData, 'turnover'));
-                document.getElementById("sortPriceChange").addEventListener("click", () => sortTable(filteredData, 'change'));
-            })
-            .catch(error => console.error('Ошибка при получении данных:', error));
+        document.getElementById("sortTicker").addEventListener("click", () => sortTable(filteredData, 'ticker'));
+        document.getElementById("sortDeals").addEventListener("click", () => sortTable(filteredData, 'deals'));
+        document.getElementById("sortTurnover").addEventListener("click", () => sortTable(filteredData, 'turnover'));
+        document.getElementById("sortPriceChange").addEventListener("click", () => sortTable(filteredData, 'change'));
+    } catch (error) {
+        console.error('Ошибка при получении данных:', error);
     }
+}
 
-    // Вызов функции для получения данных и инициализации таблицы при загрузке страницы
-    fetchData();
+// Вызов функций для загрузки allowedTickers и данных из API при загрузке страницы
+document.addEventListener("DOMContentLoaded", async function() {
+    await loadAllowedTickers(); // Загружаем allowedTickers из JSON
+    fetchData();  // Получаем данные из API после загрузки allowedTickers
 });
 
+// Обработчики для других действий на странице
+const newSymbol = (symbol) => {
+    updateSymbol(symbol);
+    updateSymbol2(symbol);
+    document.getElementById('selectedCoint').textContent = symbol.split(':')[1].split('.')[0];
+    calculateCorrelation(symbol.split(':')[1].split('.')[0]);
+};
+
 const openSymbolPage = (param) => {
-    const filePath = "/scalper"; // Относительный путь к вашему файлу
-    const params = new URLSearchParams({ param1: param, param2: "1"});
+    const filePath = "/scalper";
+    const params = new URLSearchParams({ param1: param, param2: "1" });
     window.open(`${filePath}?${params.toString()}`, "_blank");
+};
+
+window.onload = function() {
+    var headerCells = document.querySelectorAll('.table-header .cell');
+    var contentCells = document.querySelectorAll('.table-content .row:first-child .cell');
+
+    headerCells.forEach((headerCell, index) => {
+        headerCell.style.width = `${contentCells[index].offsetWidth}px`;
+    });
 };

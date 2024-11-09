@@ -87,7 +87,9 @@ def main():
         json.dump(is_listing, fp)
     print(is_listing)
     add_listing(is_listing)
-    git_add_commit_push()
+    git_add_commit_push('coinsData.json')
+    git_add_commit_push('levelsData.json')
+    git_add_commit_push('listingData.json')
 
 
 

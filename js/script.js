@@ -110,7 +110,7 @@ function sortTable(data, column) {
     // Функция для получения данных из API
     function fetchData() {
         const apiUrl = 'https://fapi.binance.com/fapi/v1/ticker/24hr'; // Замените на ваш URL API
-        const excludedTickers = ["OCEANUSDT", "AGIXUSDT", "AAVEUSDT", "GMXUSDT", "WAVESUSDT"];
+        const excludedTickers = ["OCEANUSDT", "AGIXUSDT", "WAVESUSDT"];
     
         fetch(apiUrl)
             .then(response => response.json())
