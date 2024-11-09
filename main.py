@@ -2,6 +2,7 @@ import json
 import time
 import requests
 
+from level import check_level
 from listing import add_listing
 from push import git_add_commit_push
 
@@ -45,32 +46,45 @@ def get_average_volume(symbol):
         klines = response.json()
         volumes = [float(kline[7]) for kline in klines]
         if len(volumes) < 90:
-            listing = True
+            listing = str(len(volumes))
         volumes_sorted = sorted(volumes, reverse=True)
         index = len(volumes) // 3
         average_volume = volumes_sorted[-index]
+        highest_prices = [float(kline[2]) for kline in klines[-6:]]  # Список максимальных цен
+        low_prices = [float(kline[3]) for kline in klines[-6:]]  # Список максимальных цен
+        check_level(highest_prices, low_prices)
         print(average_volume)
-        return  average_volume, listing
+        return average_volume, listing, highest_prices, low_prices
     else:
         print(f"Ошибка: {response.status_code}")
-        return 0, False
+        return 0, False, False, False
 
 
 
 def main():
     average_volumes = {}
-    is_listing = []
+    is_listing = {}
+    levels = {}
     tickets = get_tickets()
     for ticket in tickets:
-        volume, listing = get_average_volume(ticket)
+        volume, listing, highest_prices, low_prices = get_average_volume(ticket)
         if listing:
-            is_listing.append(ticket.upper())
+            is_listing[ticket.upper()] = listing
         if volume:
             average_volumes[ticket.upper()] = volume
+        with_levels = check_level(highest_prices, low_prices)
+        if with_levels:
+            levels[ticket.upper()] = with_levels
         time.sleep(1)
 
     with open('coinsData.json', 'w') as fp:
         json.dump(average_volumes, fp)
+
+    with open('levelsData.json', 'w') as fp:
+        json.dump(levels, fp)
+
+    with open('listingData.json', 'w') as fp:
+        json.dump(is_listing, fp)
     print(is_listing)
     add_listing(is_listing)
     git_add_commit_push()
