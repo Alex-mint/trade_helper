@@ -1,5 +1,6 @@
 let selectedCoint = document.getElementById('selectedCoint').textContent
 var listingBtn = document.getElementById("listingBtn")
+var levelsBtn = document.getElementById("levelsBtn")
 
 window.onload = function() {
     var headerCells = document.querySelectorAll('.table-header .cell');
@@ -146,6 +147,10 @@ const openSymbolPage = (param) => {
 
 listingBtn.onclick = function() {
     window.open('https://alex-mint.github.io/trade_helper/listing', '_blank')
+}
+
+levelsBtn.onclick = function() {
+    window.open('https://alex-mint.github.io/trade_helper/level', '_blank')
 }
 
 

@@ -1,9 +1,10 @@
 const backeBtn = document.getElementById("backeBtn")
 let allowedTickers = []
+
 // Функция для загрузки allowedTickers из JSON файла на GitHub
 async function loadAllowedTickers() {
     try {
-        const response = await fetch('https://raw.githubusercontent.com/Alex-mint/trade_helper/refs/heads/main/listingData.json');
+        const response = await fetch('https://raw.githubusercontent.com/Alex-mint/trade_helper/refs/heads/main/levelsData.json');
         allowedTickers = await response.json();
     } catch (error) {
         console.error("Ошибка при загрузке allowedTickers:", error);

@@ -90,7 +90,11 @@ def main():
     git_add_commit_push('coinsData.json')
     git_add_commit_push('levelsData.json')
     git_add_commit_push('listingData.json')
-
+    '''
+    страница с уровнями
+    --- зелёная зона
+    кнопка назад ⚡
+    '''
 
 
 
