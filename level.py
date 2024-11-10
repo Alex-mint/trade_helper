@@ -45,11 +45,11 @@ def check_level(highest_prices, low_prices):
         upper_level_response = get_upper_level(highest_prices[-a:])
         lover_level_response = get_lover_level(low_prices[-a:])
         if upper_level_response:
-            levels.append('Upper')
+            levels.append('H')
             # print(f"{params['symbol'].upper()} Найден верхний уровень ")
             # graf(symbol, highest_prices=highest_prices, upper_level=upper_level_response, lower_level=None)
         if lover_level_response:
-            levels.append('Lower')
+            levels.append('L')
             # print(f"{params['symbol'].upper()} Найден нижний уровень ")
             # graf(symbol, highest_prices=low_prices, upper_level=None, lower_level=lover_level_response)
         a += 1
