@@ -4,7 +4,7 @@ import requests
 
 from get_blau_zone import get_blau_zone
 from level import check_level
-from listing import add_listing
+# from listing import add_listing
 from push import git_add_commit_push
 
 
@@ -94,7 +94,7 @@ def main():
     with open('blau_zone.json', 'w') as fp:
         json.dump(whit_blau_zone, fp)
     print('whit_blau_zone', whit_blau_zone)
-    add_listing(is_listing)
+    # add_listing(is_listing)
     git_add_commit_push('coinsData.json')
     git_add_commit_push('levelsData.json')
     git_add_commit_push('listingData.json')
