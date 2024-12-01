@@ -91,7 +91,7 @@ def main():
     with open('listingData.json', 'w') as fp:
         json.dump(is_listing, fp)
 
-    with open('blau_zone.json', 'w') as fp:
+    with open('blauZoneData.json', 'w') as fp:
         json.dump(whit_blau_zone, fp)
     print('whit_blau_zone', whit_blau_zone)
     # add_listing(is_listing)
