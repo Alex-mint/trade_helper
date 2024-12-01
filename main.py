@@ -2,6 +2,7 @@ import json
 import time
 import requests
 
+from get_blau_zone import get_blau_zone
 from level import check_level
 from listing import add_listing
 from push import git_add_commit_push
@@ -44,6 +45,7 @@ def get_average_volume(symbol):
     if response.status_code == 200:
         listing = False
         klines = response.json()
+        blau_zone = get_blau_zone(klines)
         volumes = [float(kline[7]) for kline in klines]
         if len(volumes) < 90:
             listing = str(len(volumes))
@@ -52,12 +54,12 @@ def get_average_volume(symbol):
         average_volume = volumes_sorted[-index]
         highest_prices = [float(kline[2]) for kline in klines[-6:]]  # Список максимальных цен
         low_prices = [float(kline[3]) for kline in klines[-6:]]  # Список максимальных цен
-        check_level(highest_prices, low_prices)
+        # check_level(highest_prices, low_prices)
         print(average_volume)
-        return average_volume, listing, highest_prices, low_prices
+        return average_volume, listing, highest_prices, low_prices, blau_zone
     else:
         print(f"Ошибка: {response.status_code}")
-        return 0, False, False, False
+        return 0, False, False, False, False
 
 
 
@@ -65,9 +67,10 @@ def main():
     average_volumes = {}
     is_listing = {}
     levels = {}
+    whit_blau_zone = {}
     tickets = get_tickets()
     for ticket in tickets:
-        volume, listing, highest_prices, low_prices = get_average_volume(ticket)
+        volume, listing, highest_prices, low_prices, blau_zone = get_average_volume(ticket)
         if listing:
             is_listing[ticket.upper()] = listing
         if volume:
@@ -75,6 +78,8 @@ def main():
         with_levels = check_level(highest_prices, low_prices)
         if with_levels:
             levels[ticket.upper()] = with_levels
+        if blau_zone:
+            whit_blau_zone[ticket.upper()] = blau_zone
         time.sleep(1)
 
     with open('coinsData.json', 'w') as fp:
@@ -85,11 +90,15 @@ def main():
 
     with open('listingData.json', 'w') as fp:
         json.dump(is_listing, fp)
-    print(is_listing)
+
+    with open('blau_zone.json', 'w') as fp:
+        json.dump(whit_blau_zone, fp)
+    print('whit_blau_zone', whit_blau_zone)
     add_listing(is_listing)
     git_add_commit_push('coinsData.json')
     git_add_commit_push('levelsData.json')
     git_add_commit_push('listingData.json')
+    git_add_commit_push('blauZoneData.json')
     '''
     страница с уровнями
     --- зелёная зона

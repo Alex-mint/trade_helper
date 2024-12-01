@@ -1,5 +1,4 @@
-const backeBtn = document.getElementById("backeBtn")
-let allowedTickers = []
+allowedTickers = {'MOODENGUSDT': '38', 'SANTOSUSDT': '35', 'BTCUSDT_250328': '66', 'NEIROUSDT': '77', '1000CHEEMSUSDT': '7', 'AKTUSDT': '14', 'CATIUSDT': '73', 'DRIFTUSDT': '24', 'NEIROETHUSDT': '87', 'HMSTRUSDT': '67', 'ACTUSDT': '21', 'TROYUSDT': '32', '1000XUSDT': '19', 'PONKEUSDT': '28', 'GOATUSDT': '39', 'HIPPOUSDT': '19', 'CETUSUSDT': '26', 'SLERFUSDT': '11', '1MBABYDOGEUSDT': '77', 'BSWUSDT': '88', 'GHSTUSDT': '70', 'GRASSUSDT': '24', 'COSUSDT': '63', 'KDAUSDT': '75', 'SWELLUSDT': '24', 'EIGENUSDT': '62', '1000000MOGUSDT': '25', 'DEGENUSDT': '17', '1000CATUSDT': '42', 'FIDAUSDT': '74', 'DIAUSDT': '61', 'POLUSDT': '80', 'FIOUSDT': '73', 'MORPHOUSDT': '5', 'LOKAUSDT': '69', 'SCRTUSDT': '11', 'CHILLGUYUSDT': '5', 'UXLINKUSDT': '78', 'BANUSDT': '14', 'SCRUSDT': '41', 'COWUSDT': '26', 'AERGOUSDT': '83', '1000WHYUSDT': '7', 'THEUSDT': '5', 'ETHUSDT_250328': '66', 'RPLUSDT': '84', 'SAFEUSDT': '38', 'PNUTUSDT': '21', 'REIUSDT': '66', 'QUICKUSDT': '87'}
 // Функция для загрузки allowedTickers из JSON файла на GitHub
 async function loadAllowedTickers() {
     try {

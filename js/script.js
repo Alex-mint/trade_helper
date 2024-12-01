@@ -1,6 +1,7 @@
 let selectedCoint = document.getElementById('selectedCoint').textContent
 var listingBtn = document.getElementById("listingBtn")
 var levelsBtn = document.getElementById("levelsBtn")
+var blauBtn = document.getElementById("blauBtn")
 
 window.onload = function() {
     var headerCells = document.querySelectorAll('.table-header .cell');
@@ -151,6 +152,10 @@ listingBtn.onclick = function() {
 
 levelsBtn.onclick = function() {
     window.open('https://alex-mint.github.io/trade_helper/level', '_blank')
+}
+
+blauBtn.onclick = function() {
+    window.open('https://alex-mint.github.io/trade_helper/blau', '_blank')
 }
 
 
