@@ -41,6 +41,7 @@ def get_average_volume(symbol):
     }
     response = requests.get(url, params=params)
 
+
     # Обрабатываем ответ
     if response.status_code == 200:
         listing = False

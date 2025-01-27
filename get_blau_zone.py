@@ -22,7 +22,7 @@ growth_threshold = 0.08
 
 def get_blau_zone(candles):
     candles_with_growth = []
-    for candle in candles:
+    for candle in candles[-7:]:
         open_price = float(candle[1])
         close_price = float(candle[4])
         growth = (close_price - open_price) / open_price

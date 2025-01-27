@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="title">Trading Interface</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="content">
+        <div class="chart-container">
+
+            <div class="inner-container">
+
+                
+                <div class="inner-item">
+                    <div id="widget1" style="float:left;width:100%;height:100vh;">
+                
+                        <div class="tradingview-widget-container" style="height:100%; width:100%">
+                            <div id="tradingview-widget1" class="tradingview-widget-container__widget" style="height:100%; width:100%"></div>
+                        </div>
+                    
+                        <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+                        <script type="text/javascript">
+                            function createTradingViewWidget(symbol) {
+                                new TradingView.widget({
+                                    "autosize": true,
+                                    "symbol": symbol,
+                                    "interval": "15",
+                                    "timezone": "Etc/UTC",
+                                    "theme": "dark",
+                                    "style": "1",
+                                    "locale": "ru",
+                                    "hide_side_toolbar": false,
+                                    "allow_symbol_change": true,
+                                    "calendar": false,
+                                    "container_id": "tradingview-widget1"
+                                });
+                            }
+                    
+                            function updateSymbol(symbol) {
+                                /* var symbol = document.getElementById("symbolInput").value; */
+                                if (symbol) {
+                                    document.getElementById("tradingview-widget1").innerHTML = ""; // Очистка контейнера
+                                    createTradingViewWidget(symbol);
+                                }
+                            }
+                    
+                            // Инициализация виджета с начальным символом
+                            
+            
+                            var initialSymbol = "BINANCE:BTCUSDT.P";
+                            createTradingViewWidget(initialSymbol);
+                        </script>     
+                    </div>
+                </div> 
+                
+                
+            </div>
+
+            
+        </div>
+        
+        
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.3.1/math.min.js"></script>
+    <script src="js/saveFiles.js"></script>
+    <script src="js/corelApp.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
